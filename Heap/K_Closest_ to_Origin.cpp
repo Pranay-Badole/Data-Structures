@@ -1,0 +1,84 @@
+	#include "bits/stdc++.h"
+	using namespace std;	
+
+
+	#define int              long long 
+	#define pb                push_back
+	#define ppb               pop_back
+	#define pf                push_front
+	#define ppf               pop_front
+	#define all(x)            (x).begin(),(x).end()
+	#define uniq(v)           (v).erase(unique(all(v)),(v).end())
+	#define sz(x)             (int)((x).size())
+	#define fr                first
+	#define sc                second
+	#define pii              pair<int,int>
+	#define mkp 				  make_pair
+	#define rep(i,a,b)        for(int i=a;i<b;i++)
+	#define rrep(i,a,b)       for(int i=a;i>=b;i--)
+	#define REP(i,a,b)        for(int i=a;i<=b;i++)
+	#define mem1(a)   
+	#define mem0(a)           memset(a,0,sizeof(a))
+	#define ppc               __builtin_popcount
+	#define ppcll             __builtin_popcountll
+	#define acc				  accumulate
+	#define endl			  '\n'
+	#define length(a)		  sizeof(a)/sizeof(a[0])
+	#define auv(v)		      for(auto x:v) cout<<x<<' '; 
+	#define aump(mp)	      for(auto x:mp) cout<<x.fr<<' '<<x.sc<<endl; 
+ 
+
+	typedef pair<int,pair<int,int>> ppi;
+	
+const int N=200005;
+const int M=998244353;
+
+class mycomp{
+public: 
+constexpr bool operator() (pii a, pii b){
+	return a.second < b.second;
+}
+};
+
+vector<pii> k_closest_to_origin(std::vector<pii> v, int n, int k){
+	priority_queue<ppi> maxh;
+
+		for(auto x:v){maxh.push({((x.fr*x.fr)+(x.sc*x.sc)),{x.fr,x.sc}});
+			if(sz(maxh)>k){maxh.pop();}
+		}
+
+		std::vector<pii>ans;
+	while(sz(maxh)){
+		ans.pb({maxh.top().sc.fr,maxh.top().sc.sc});
+		maxh.pop();
+	}
+	return ans;
+}
+
+void solve(){	
+	std::vector<pii> v = {{1,3},{-2,2},{5,8},{0,1}};
+	int k=2;
+	int n=sz(v);
+	vector<pii> ans;
+	ans = k_closest_to_origin(v,n,k);
+	aump(ans);
+}
+	signed main(){
+		ios_base::sync_with_stdio(false);
+		cin.tie(0);cout.tie(0);
+		#ifndef ONLINE_JUDGE
+			freopen("input.txt","r",stdin);
+			freopen("output.txt","w",stdout);
+		#endif
+		#ifdef SIEVE
+			sieve();
+		#endif
+		#ifdef NCR
+			init();
+		#endif
+
+		int t=1;
+		// cin>>t;
+		while(t--) solve();
+		return 0;
+	}
