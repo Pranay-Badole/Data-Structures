@@ -70,8 +70,33 @@ public:
 				low[v] = min(low[v], tin[to]);
 			}
 		}
-
 	}
+
+	// alternate temp AC verdict in GFG and coding ninjas
+	void dfs(T v, T p){
+
+        visited[v] = 1;
+        
+         low[v] = tin[v] = timer++;
+
+        for(auto to : adj[v]){
+            if(to == p) continue;
+
+            if(visited[to] == 0){
+                dfs(to, v);
+            }
+
+        // this works as low[to] will be same as tin[to] when vis[to] = 1 as well
+        // so no need of else condition
+
+            low[v] = min(low[v],low[to]);
+            if(tin[v] < low[to]){
+                cout << v << "<-->" << to << "  ";
+            }
+
+        }
+
+    }
 
 	void find_bridges(){
 		
